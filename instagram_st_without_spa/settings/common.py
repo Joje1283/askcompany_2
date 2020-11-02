@@ -126,8 +126,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_FILES_DIRS = [
-    BASE_DIR / 'instagram_st_without_spa' / 'static'
+STATICFILES_DIRS = [
+    BASE_DIR / 'instagram_st_without_spa' / 'static',
 ]
 STATIC_ROOT = BASE_DIR / 'static'
 
