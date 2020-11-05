@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -139,3 +140,23 @@ MEDIA_ROOT = BASE_DIR / 'media'
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
+
+
+# Email with Send Grid
+"""
+Windows (명령프롬프트 환경에서)
+set SENDGRID_API_KEY=API_KEY
+echo %SENDGRID_API_KEY%
+
+MAC (쉘 환경에서)
+export SENDGRID_API_KEY=API_KEY
+echo $SENDGRID_API_KEY
+"""
+SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey'
+EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+WELCOME_EMAIL_SENDER = 'joje1283@gmail.com'
