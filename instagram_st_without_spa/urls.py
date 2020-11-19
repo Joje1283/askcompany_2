@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.urls import path, include, re_path
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, RedirectView
 from django_pydenticon.views import image as pydenticon_image
 
 urlpatterns = [
@@ -12,8 +12,8 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('identicon/image/<path:data>/', pydenticon_image, name='pydenticon_image'),
     # re_path('', TemplateView.as_view(template_name='root.html'), name='root'),  # 모든 경우에 매칭되는 URL
-    path('', include('instagram.urls')),
-    path('', login_required(TemplateView.as_view(template_name='root.html')), name='root'),
+    path('instagram/', include('instagram.urls')),
+    path('', RedirectView.as_view(pattern_name='instagram:index'), name='root'),
 ]
 
 if settings.DEBUG:
