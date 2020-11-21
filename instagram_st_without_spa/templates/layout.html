@@ -22,7 +22,9 @@
       <div class="col-sm-12">
         <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-white">
           <h5 class="my-0 mr-md-auto font-weight-normal">
-            <img alt="Instagram" src="{% static 'logo.png' %}">
+            <a href="{% url "root" %}">
+              <img alt="Instagram" src="{% static 'logo.png' %}">
+            </a>
           </h5>
           <nav class="my-2 my-md-0 mr-md-3">
             <a class="p-2 text-dark" href="explore/">
@@ -39,7 +41,7 @@
               </svg>
             </a>
             <a class="p-2 text-dark" href="{% url "accounts:profile_edit" %}">
-                <img src="{{ user.avatar_url }}" style="width: 24px; height: 24px;" class="rounded-circle" />
+              <img src="{{ user.avatar_url }}" style="width: 24px; height: 24px;" class="rounded-circle"/>
             </a>
           </nav>
         </div>
