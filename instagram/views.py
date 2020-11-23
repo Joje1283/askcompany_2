@@ -9,6 +9,7 @@ from .models import Post
 from django.utils import timezone
 from datetime import timedelta
 
+
 @login_required
 def index(request):
     timesince = timezone.now() - timedelta(days=3)
@@ -24,9 +25,13 @@ def index(request):
     suggested_user_model = get_user_model().objects.all()\
         .exclude(pk=request.user.pk)\
         .exclude(pk__in=request.user.following_set.all())[:3]
+
+    comment_form = CommentForm()
+
     return render(request, "instagram/index.html", {
         'post_list': post_list,
         'suggested_user_model': suggested_user_model,
+        'comment_form': comment_form
     })
 
 
@@ -50,8 +55,10 @@ def post_new(request):
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
+    comment_form = CommentForm()
     return render(request, "instagram/post_detail.html", {
         "post": post,
+        'comment_form': comment_form,
     })
 
 

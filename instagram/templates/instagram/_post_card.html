@@ -1,4 +1,4 @@
-{% load humanize instagram_tags %}
+{% load humanize instagram_tags bootstrap4 %}
 <div class="card">
   <div class="card-header">
     <img src="{{ user.avatar_url }}" style="width: 32px; height: 32px;"/>
@@ -21,13 +21,13 @@
     </div>
 
     <div class="comment-list mt-3 mb-3">
-    {% for comment in post.comment_set.all %}
-      <div class="comment">
-        <strong>{{ comment.author }}</strong>
-        {{ comment.message }}
-        <small class="text-muted">{{ comment.created_at|naturaltime }}</small>
-      </div>
-    {% endfor %}
+      {% for comment in post.comment_set.all %}
+        <div class="comment">
+          <strong>{{ comment.author }}</strong>
+          {{ comment.message }}
+          <small class="text-muted">{{ comment.created_at|naturaltime }}</small>
+        </div>
+      {% endfor %}
     </div>
     <div>
       {% for tag in post.tag_set.all %}
@@ -43,6 +43,11 @@
     </div>
   </div>
   <div class="card-footer">
-    <a href="{% url 'instagram:comment_new' post.pk %}">댓글 쓰기</a>
+    <form action="{% url 'instagram:comment_new' post.pk %}" method="POST">
+      {% csrf_token %}
+      {% bootstrap_form comment_form %}
+      <input type="submit" value="댓글 쓰기" class="btn btn-primary btn-block"/>
+    </form>
+
   </div>
 </div>
