@@ -12,7 +12,7 @@ from datetime import timedelta
 
 @login_required
 def index(request):
-    timesince = timezone.now() - timedelta(days=3)
+    timesince = timezone.now() - timedelta(days=10)
     post_list = Post.objects.all()\
         .filter(
             Q(author=request.user) |
@@ -90,6 +90,10 @@ def comment_new(request, post_pk):
             comment.author = request.user
             comment.post = post
             comment.save()
+            if request.is_ajax():
+                return render(request, "instagram/_comment.html", {
+                    "comment": comment,
+                })
             return redirect(comment.post)
     else:
         form = CommentForm()
